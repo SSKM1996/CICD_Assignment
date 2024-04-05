@@ -1,0 +1,25 @@
+
+on:
+  workflow_run:
+    workflows: ["Train"]
+    types:
+      - completed
+
+jobs:
+  pull-and-run:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling image from docker
+        run: docker pull sskm1996/assign_cicd:latest
+
+      - name: Running image and verifying the score
+        run: |
+          value=$(docker run sskm1996/assign_cicd:latest | tail -n 1)
+          echo "$value"
+          if (( $(echo "$value > 0.50" | bc -l) )); then
+            echo "Score is more than 0.50, pass...."
+          else
+            echo "Score is not more than 0.50, job is failed."
+            exit 1
