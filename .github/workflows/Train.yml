@@ -14,7 +14,8 @@ jobs:
       run: |
         docker build -t sskm1996/assign_cicd:latest .
     - name: Docker Login
-      run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "sskm1996" --password-stdin
+      run: |
+         docker login -u "sskm1996" -p "dckr_pat_1g1xJIhUTuVyirwNPQfzlTn_8CA"
     - name: Push Docker image
       run: |
         docker push sskm1996/assign_cicd:latest
