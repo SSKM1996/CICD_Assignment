@@ -17,7 +17,7 @@ jobs:
 
       - name: Running image and verifying the score
         run: |
-          value=$(docker run sskm1996/assign_cicd:latest | tail -n 1)
+          value=$(docker run sskm1996/assign_cicd:latest python3 test.py | tail -n 1)
           echo "$value"
           if (( $(echo "$value > 0.35" | bc -l) )); then
             echo "Score is more than 0.35, pass...."
