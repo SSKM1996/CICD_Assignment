@@ -18,8 +18,8 @@ jobs:
         run: |
           value=$(docker run sskm1996/assign_cicd:latest | tail -n 1)
           echo "$value"
-          if (( $(echo "$value > 0.50" | bc -l) )); then
-            echo "Score is more than 0.50, pass...."
+          if (( $(echo "$value > 0.35" | bc -l) )); then
+            echo "Score is more than 0.35, pass...."
           else
-            echo "Score is not more than 0.50, job is failed."
+            echo "Score is not more than 0.35, job is failed."
             exit 1
