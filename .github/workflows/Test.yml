@@ -1,25 +1,27 @@
+ name: Test
 
-on:
-  workflow_run:
-    workflows: ["Train"]
-    types:
+
+  on:
+   workflow_run:
+   workflows: ["Train"]
+   types:
       - completed
 
-jobs:
-  pull-and-run:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+   jobs:
+     pull-and-run:
+     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Pulling image from docker
+     runs-on: ubuntu-latest
+      steps:
+       - name: Pulling image from docker
         run: docker pull sskm1996/assign_cicd:latest
 
-      - name: Running image and verifying the score
+       - name: Running image and verifying the score
         run: |
-          value=$(docker run sskm1996/assign_cicd:latest | tail -n 1)
+          value=$(docker run sskm1996/assign_cicd:latest python3 train.py | tail -n 1)
           echo "$value"
           if (( $(echo "$value > 0.35" | bc -l) )); then
-            echo "Score is more than 0.35, pass...."
+            echo "Score is more than 0.35, pass....."
           else
             echo "Score is not more than 0.35, job is failed."
             exit 1
