@@ -1,7 +1,5 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-
 import pickle
 import numpy as np
 
