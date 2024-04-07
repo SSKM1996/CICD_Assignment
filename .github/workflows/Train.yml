@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build Docker image
       run: |
-        docker build -t sskm1996/assign_cicd:latest .
+        docker build -t sskm1996/assign_cicd:latest -f Dockerfile .
     - name: Docker Login
       run: |
          docker login -u "sskm1996" -p "dckr_pat_1g1xJIhUTuVyirwNPQfzlTn_8CA"
